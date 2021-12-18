@@ -13,9 +13,9 @@ node {
 
     stage("Docker build"){
         sh 'docker version'
-        sh 'docker build -t huguette/httpd .'
+        sh 'docker build -t huguette/sim .'
         sh 'docker image list'
-        sh 'docker tag huguette/httpd huguette1980/huguette/httpd:huguette/httpd'
+        sh 'docker tag huguette1980/huguette/sim:huguette/sim'
     }
 
     withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
@@ -23,7 +23,7 @@ node {
     }
 
     stage("Push Image to Docker Hub"){
-        sh 'docker push huguette1980/huguette/httpd:huguette/httpd'
+        sh 'docker push huguette1980/huguette/sim:huguette/sim'
     }
     
     stage("kubernetes deployment"){
