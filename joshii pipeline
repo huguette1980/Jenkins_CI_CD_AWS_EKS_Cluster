@@ -15,7 +15,7 @@ node {
         sh 'docker version'
         sh 'docker build -t huguette/sim .'
         sh 'docker image list'
-        sh 'docker tag huguette1980/huguette/sim:huguette/sim'
+        sh 'docker tag huguette/sim huguette1980/huguette/sim:huguette/sim'
     }
 
     withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
