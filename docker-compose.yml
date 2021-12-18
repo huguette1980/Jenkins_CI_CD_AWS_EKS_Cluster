@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  jhooq-springboot-container:
+    image: king-httpd josh1991/king-httpd:king-httpd
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - /data/jhooq-springboot-container
+    ports:
+      - "8080-8100:8080"
