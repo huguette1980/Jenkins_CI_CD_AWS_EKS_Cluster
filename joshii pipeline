@@ -2,7 +2,7 @@ node {
 
     stage("Git Clone"){
 
-        git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/huguette1980/k8s-jenkins-aws'
+        git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/huguette1980/Jenkins_CI_CD_AWS_EKS_Cluster'
     }
 
      stage('Gradle Build') {
@@ -13,17 +13,17 @@ node {
 
     stage("Docker build"){
         sh 'docker version'
-        sh 'docker build -t huguette/sim .'
+        sh 'docker build -t huguette_httpd .'
         sh 'docker image list'
-        sh 'docker tag huguette/sim huguette1980/huguette/sim:huguette/sim'
+        sh 'docker tag huguette_httpd huguette/huguette_httpd'
     }
 
     withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
-        sh 'docker login -u huguette1980 -p $PASSWORD'
+        sh 'docker login -u huguette -p $PASSWORD'
     }
 
     stage("Push Image to Docker Hub"){
-        sh 'docker push huguette1980/huguette/sim:huguette/sim'
+        sh 'docker push huguette/huguette_httpd'
     }
     
     stage("kubernetes deployment"){
